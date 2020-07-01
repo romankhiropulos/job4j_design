@@ -4,6 +4,8 @@ package ru.job4j.it;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 import org.junit.Test;
+import ru.job4j.iterators.FlatMap;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -55,6 +57,20 @@ public class FlatMapTest {
     @Test(expected = NoSuchElementException.class)
     public void whenEmpty() {
         Iterator<Iterator<Object>> data = List.of(
+                List.of().iterator()
+        ).iterator();
+        FlatMap<Object> flat = new FlatMap<>(data);
+        flat.next();
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenMultiHasEmpty() {
+        Iterator<Iterator<Object>> data = List.of(
+                List.of().iterator(),
+                List.of().iterator(),
+                List.of().iterator(),
+                List.of().iterator(),
+                List.of().iterator(),
                 List.of().iterator()
         ).iterator();
         FlatMap<Object> flat = new FlatMap<>(data);

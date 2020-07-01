@@ -1,4 +1,4 @@
-package ru.job4j.it;
+package ru.job4j.iterators;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -21,7 +21,7 @@ public class MatrixIt implements Iterator<Integer> {
             column = 0;
             row++;
         }
-        return true;
+        return row != data.length;
     }
 
     @Override
