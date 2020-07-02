@@ -1,6 +1,10 @@
-package ru.job4j.generics;
+package ru.job4j.generics.simplearray;
 
-public class SimpleArray<T> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
+public class SimpleArray<T> implements Iterable<T> {
     /*
 
     В этом задании необходимо сделать универсальную обертку над массивом.
@@ -31,8 +35,66 @@ public class SimpleArray<T> {
     Для проверки индекса используйте метод Objects.checkIndex.
 
     */
+    private final Object[] storage;
 
+    private final int capacity;
 
-    // private T storage = new T();
+    private int indexCounter = -1;
 
+    public SimpleArray(int capacity) {
+        this.capacity = capacity;
+        storage = new Object[capacity];
+    }
+
+    public void add(T element) {
+        Objects.checkIndex(indexCounter + 1, capacity);
+        indexCounter++;
+        storage[indexCounter] = element;
+    }
+    
+    public T get(int position) {
+        Objects.checkIndex(position, indexCounter + 1);
+        return (T) storage[position];
+    }
+    
+    public void set(int position, T element) {
+        Objects.checkIndex(position, indexCounter + 1);
+        storage[position] = element;
+    }
+
+    public void remove(int position) {
+        Objects.checkIndex(position, indexCounter + 1);
+        System.arraycopy(storage, position + 1, storage, position, indexCounter - position - 1);
+        indexCounter--;
+    }
+
+    public int getIndexCounter() {
+        return indexCounter + 1;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new SimpleItr();
+    }
+
+    private class SimpleItr implements Iterator<T> {
+
+        private int point = 0;
+
+        public SimpleItr() {
+        }
+
+        @Override
+        public boolean hasNext() {
+            return point <= indexCounter;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return (T) storage[point++];
+        }
+    }
 }
