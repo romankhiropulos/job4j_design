@@ -5,36 +5,6 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimpleArray<T> implements Iterable<T> {
-    /*
-
-    В этом задании необходимо сделать универсальную обертку над массивом.
-
-    Создать класс:
-    public class SimpleArray<T>
-
-    Добавить методы:
-
-    add(T model) - добавляет указанный элемент (model) в первую свободную ячейку;
-
-    set(int index, T model) - заменяет указанным элементом (model) элемент, находящийся по индексу index;
-
-    remove(int index) - удаляет элемент по указанному индексу, все находящиеся справа элементы при этом
-    необходимо сдвинуть на единицу влево (в середине массива не должно быть пустых ячеек);
-
-    get(int index) - возвращает элемент, расположенный по указанному индексу;
-
-    Также, реализуйте интерфейс Iterable<T> - метод iterator() возвращает итератор,
-    предназначенный для обхода данной структуры.
-
-    Объект должен принимать количество ячеек. Структура не должна быть динамической.
-
-    Примечание:
-    В методах, где используется индекс нужно делать валидацию.
-    Индекс должен находиться в рамках добавленных элементов. Например, у вас есть хранилище из 10 элементов.
-    Вы добавили 3 элемента. Каким может быть индекс? [0, 2].
-    Для проверки индекса используйте метод Objects.checkIndex.
-
-    */
     private final Object[] storage;
 
     private final int capacity;
@@ -51,20 +21,20 @@ public class SimpleArray<T> implements Iterable<T> {
         indexCounter++;
         storage[indexCounter] = element;
     }
-    
-    public T get(int position) {
-        Objects.checkIndex(position, indexCounter + 1);
-        return (T) storage[position];
-    }
-    
-    public void set(int position, T element) {
-        Objects.checkIndex(position, indexCounter + 1);
-        storage[position] = element;
+
+    public T get(int index) {
+        Objects.checkIndex(index, indexCounter + 1);
+        return (T) storage[index];
     }
 
-    public void remove(int position) {
-        Objects.checkIndex(position, indexCounter + 1);
-        System.arraycopy(storage, position + 1, storage, position, indexCounter - position - 1);
+    public void set(int index, T element) {
+        Objects.checkIndex(index, indexCounter + 1);
+        storage[index] = element;
+    }
+
+    public void remove(int index) {
+        Objects.checkIndex(index, indexCounter + 1);
+        System.arraycopy(storage, index + 1, storage, index, indexCounter - index - 1);
         indexCounter--;
     }
 
