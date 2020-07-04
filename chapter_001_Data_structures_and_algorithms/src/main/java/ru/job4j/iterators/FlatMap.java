@@ -1,13 +1,10 @@
 package ru.job4j.iterators;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class FlatMap<T> implements Iterator<T> {
     private final Iterator<Iterator<T>> data;
-    private Iterator<T> iterator;
+    private Iterator<T> iterator = Collections.emptyIterator();
 
     public FlatMap(Iterator<Iterator<T>> data) {
         this.data = Objects.requireNonNull(data, "data must not be null");
@@ -16,15 +13,13 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        if (data.hasNext() && iterator.hasNext()) {
-            return true;
-        } else if (data.hasNext()) {
-            iterator = data.next();
-            while (!iterator.hasNext()) {
+        while (data.hasNext() || iterator.hasNext()) {
+            if (!iterator.hasNext()) {
                 iterator = data.next();
+                while (!iterator.hasNext()) {
+                    iterator = data.next();
+                }
             }
-            return true;
-        } else if (iterator.hasNext()) {
             return true;
         }
         return false;
