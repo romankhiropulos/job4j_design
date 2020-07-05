@@ -49,28 +49,29 @@ public abstract class MemStoreTest {
         storage.add(USER_3);
     }
 
-    @Test(expected = ExistStorageException.class)
+    @Test(expected = StorageException.class)
     public void add() {
         storage.add(USER_4);
         assertEquals(USER_4, storage.findById(USER_4.getId()));
         storage.add(USER_1);
     }
 
-    @Test(expected = NotExistStorageException.class)
+    @Test(expected = StorageException.class)
     public void replace() {
-        storage.replace("333", USER_4);
+        assertTrue(storage.replace("333", USER_4));
         assertEquals(USER_4, storage.findById("444"));
         storage.replace("333", USER_4);
     }
 
-    @Test(expected = NotExistStorageException.class)
+    @Test
     public void delete() {
         storage.delete("111");
-        storage.findById("111");
+        assertNull(storage.findById("111"));
     }
 
-    @Test(expected = NotExistStorageException.class)
+    @Test
     public void findById() {
-        storage.findById("555");
+        assertNull(storage.findById("555"));
+        assertEquals(USER_1, storage.findById("111"));
     }
 }

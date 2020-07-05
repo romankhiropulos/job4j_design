@@ -13,43 +13,44 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public void add(T model) {
-        if (!mem.contains(model)) {
-            mem.add(model);
-        } else {
+        if (mem.contains(model)) {
             throw new StorageException(model.getId());
         }
+        mem.add(model);
     }
 
     @Override
     public boolean replace(String id, T model) {
-        T searchKey = findById(id);
-        mem.set(mem.indexOf(searchKey), model);
+        mem.set(getSearchIndex(id), model);
         return true;
     }
 
     @Override
     public boolean delete(String id) {
-        T searchKey;
-        searchKey = findById(id);
-        return mem.remove(searchKey);
+        mem.remove(getSearchIndex(id));
+        return true;
     }
 
     @Override
     public T findById(String id) {
-        int searchIndex = getSearchIndex(id);
+        try {
+            return mem.get(getSearchIndex(id));
+        } catch (StorageException exception) {
+            return null;
+        }
+    }
+
+    private int getSearchIndex(String id) {
+        int searchIndex = -1;
+        for (int i = 0; i < mem.size(); i++) {
+            if (id.equals(mem.get(i).getId())) {
+                searchIndex = i;
+            }
+        }
         if (!validate(searchIndex)) {
             throw new StorageException(id);
         }
-        return mem.get(searchIndex);
-    }
-
-    private Integer getSearchIndex(String uuid) {
-        for (int i = 0; i < mem.size(); i++) {
-            if (uuid.equals(mem.get(i).getId())) {
-                return i;
-            }
-        }
-        return -1;
+        return searchIndex;
     }
 
     private boolean validate(Integer searchKey) {
