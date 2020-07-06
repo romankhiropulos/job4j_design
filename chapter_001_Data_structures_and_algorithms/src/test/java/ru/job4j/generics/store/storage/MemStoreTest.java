@@ -56,11 +56,11 @@ public abstract class MemStoreTest {
         storage.add(USER_1);
     }
 
-    @Test(expected = StorageException.class)
+    @Test
     public void replace() {
         assertTrue(storage.replace("333", USER_4));
         assertEquals(USER_4, storage.findById("444"));
-        storage.replace("333", USER_4);
+        assertFalse(storage.replace("333", USER_4));
     }
 
     @Test
@@ -72,6 +72,7 @@ public abstract class MemStoreTest {
     @Test
     public void findById() {
         assertNull(storage.findById("555"));
+        storage.findById("");
         assertEquals(USER_1, storage.findById("111"));
     }
 }

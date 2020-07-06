@@ -21,23 +21,31 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        mem.set(getSearchIndex(id), model);
+        int searchIndex = getSearchIndex(id);
+        if (!validate(searchIndex)) {
+            return false;
+        }
+        mem.set(searchIndex, model);
         return true;
     }
 
     @Override
     public boolean delete(String id) {
-        mem.remove(getSearchIndex(id));
+        int searchIndex = getSearchIndex(id);
+        if (!validate(searchIndex)) {
+            return false;
+        }
+        mem.remove(searchIndex);
         return true;
     }
 
     @Override
     public T findById(String id) {
-        try {
-            return mem.get(getSearchIndex(id));
-        } catch (StorageException exception) {
+        int searchIndex = getSearchIndex(id);
+        if (!validate(searchIndex)) {
             return null;
         }
+        return mem.get(searchIndex);
     }
 
     private int getSearchIndex(String id) {
@@ -45,10 +53,8 @@ public final class MemStore<T extends Base> implements Store<T> {
         for (int i = 0; i < mem.size(); i++) {
             if (id.equals(mem.get(i).getId())) {
                 searchIndex = i;
+                break;
             }
-        }
-        if (!validate(searchIndex)) {
-            throw new StorageException(id);
         }
         return searchIndex;
     }
