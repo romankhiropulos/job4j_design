@@ -33,8 +33,7 @@ public class SimpleArrayList<T> implements Iterable<T> {
 
     public SimpleArrayList(int capacity) {
         if (!(capacity > 0)) {
-            throw new IllegalArgumentException("Illegal Capacity: " +
-                    capacity);
+            throw new IllegalArgumentException("Illegal Capacity: " + capacity);
         }
         this.capacity = capacity;
         storage = new Object[capacity];
