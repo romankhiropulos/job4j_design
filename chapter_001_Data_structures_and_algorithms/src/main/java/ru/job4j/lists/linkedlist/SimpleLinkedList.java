@@ -28,17 +28,13 @@ public class SimpleLinkedList<T> implements Iterable<T> {
     public T get(int index) {
         Objects.checkIndex(index, size);
         Iterator<T> iterator = this.iterator();
-        Object[] searchValue = new Object[]{null};
-        int[] array = {0};
-        iterator.forEachRemaining(nextValue -> {
-            if (array[0] == index) {
-                searchValue[0] = nextValue;
-                return;
+        int count = 0;
+        while (iterator.hasNext()) {
+            if (count == index) {
+                return iterator.next();
             }
-            array[0]++;
-        });
-
-        return (T) searchValue[0];
+        }
+        return null;
     }
 
     @Override
@@ -68,13 +64,10 @@ public class SimpleLinkedList<T> implements Iterable<T> {
     }
 
     private class Itr implements Iterator<T> {
-        private Node<T> lastReturned;
-        private Node<T> next;
+        private Node<T> current = first;
         int expectedModCount = modCount;
-        int point;
 
         public Itr() {
-            next = first;
         }
 
         @Override
@@ -82,7 +75,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            return point < size;
+            return current != null;
         }
 
         @Override
@@ -90,15 +83,10 @@ public class SimpleLinkedList<T> implements Iterable<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            if (point != 0) {
-                next = lastReturned.next;
-                lastReturned = next;
-            } else {
-                lastReturned = first;
-                next = first;
+            if (current.next != null) {
+                current = current.next;
             }
-            point++;
-            return next.obj;
+            return current.obj;
         }
     }
 }
