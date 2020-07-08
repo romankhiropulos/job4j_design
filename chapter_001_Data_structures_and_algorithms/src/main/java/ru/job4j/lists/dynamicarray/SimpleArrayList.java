@@ -1,9 +1,6 @@
 package ru.job4j.lists.dynamicarray;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * The iterators returned by this class's iterator methods are fail-fast:
@@ -19,7 +16,7 @@ import java.util.Objects;
  */
 public class SimpleArrayList<T> implements Iterable<T> {
 
-    private final Object[] storage;
+    private Object[] storage;
 
     private int capacity = 10;
 
@@ -39,9 +36,14 @@ public class SimpleArrayList<T> implements Iterable<T> {
         storage = new Object[capacity];
     }
 
+    public int getElementsCounter() {
+        return elementsCounter;
+    }
+
     public void add(T element) {
         if (elementsCounter == capacity) {
             capacity = 3 * capacity / 2;
+            storage = Arrays.copyOf(storage, capacity);
             modCount++;
         }
         storage[elementsCounter] = element;
@@ -51,7 +53,7 @@ public class SimpleArrayList<T> implements Iterable<T> {
 
     public T get(int index) {
         Objects.checkIndex(index, elementsCounter);
-        return (T) storage[elementsCounter - 1];
+        return (T) storage[index];
     }
 
     @Override

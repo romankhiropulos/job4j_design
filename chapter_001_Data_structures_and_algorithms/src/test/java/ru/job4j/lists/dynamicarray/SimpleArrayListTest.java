@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class SimpleArrayListTest {
     @Test
@@ -37,6 +37,28 @@ public class SimpleArrayListTest {
         SimpleArrayList<String> array = new SimpleArrayList<>();
         array.add("first");
         array.get(1);
+    }
+
+    @Test
+    public void whenGetThirdObject() {
+        SimpleArrayList<String> array = new SimpleArrayList<>();
+        array.add("first");
+        array.add("second");
+        array.add("third");
+        assertThat("third", is(array.get(2)));
+    }
+
+    @Test
+    public void whenGetFromArrayWithCustomCapacity() {
+        SimpleArrayList<String> array = new SimpleArrayList<>(3);
+        array.add("first");
+        array.add("second");
+        array.add("third");
+        assertThat("third", is(array.get(2)));
+        array.add("fourth");
+        assertThat("fourth", is(array.get(3)));
+        assertThat("first", is(array.iterator().next()));
+        assertThat(4, is(array.getElementsCounter()));
     }
 
     @Test(expected = NoSuchElementException.class)
