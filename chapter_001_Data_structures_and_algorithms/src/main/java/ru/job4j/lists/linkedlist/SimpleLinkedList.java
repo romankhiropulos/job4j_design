@@ -48,9 +48,9 @@ public class SimpleLinkedList<T> implements Iterable<T> {
 
     private static class Node<T> {
 
-        T obj;
-        Node<T> previous;
-        Node<T> next;
+        private T obj;
+        private Node<T> previous;
+        private Node<T> next;
 
         public Node(T obj) {
             this.obj = obj;
@@ -60,6 +60,10 @@ public class SimpleLinkedList<T> implements Iterable<T> {
             this(obj);
             this.previous = previous;
             this.next = next;
+        }
+
+        public T getObj() {
+            return obj;
         }
     }
 
@@ -94,7 +98,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
                 next = first;
             }
             point++;
-            return (T) next;
+            return next.obj;
         }
     }
 }
