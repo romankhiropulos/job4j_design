@@ -28,13 +28,14 @@ public class SimpleLinkedList<T> implements Iterable<T> {
     public T get(int index) {
         Objects.checkIndex(index, size);
         Iterator<T> iterator = this.iterator();
-        int count = 0;
-        while (iterator.hasNext()) {
-            if (count == index) {
-                return iterator.next();
+        T next = null;
+        for (int i = 0; i < size; i++) {
+            next = iterator.next();
+            if (i == index) {
+                return next;
             }
         }
-        return null;
+        return next;
     }
 
     @Override
@@ -56,10 +57,6 @@ public class SimpleLinkedList<T> implements Iterable<T> {
             this(obj);
             this.previous = previous;
             this.next = next;
-        }
-
-        public T getObj() {
-            return obj;
         }
     }
 

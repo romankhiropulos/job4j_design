@@ -39,6 +39,15 @@ public class SimpleLinkedListTest {
         array.get(1);
     }
 
+    @Test
+    public void whenGetThirdObject() {
+        SimpleLinkedList<String> array = new SimpleLinkedList<>();
+        array.add("first");
+        array.add("second");
+        array.add("third");
+        assertThat("third", is(array.get(2)));;
+    }
+
     @Test(expected = NoSuchElementException.class)
     public void whenGetEmptyFromIt() {
         SimpleLinkedList<String> array = new SimpleLinkedList<>();
