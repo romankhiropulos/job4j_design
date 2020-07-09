@@ -45,7 +45,7 @@ public class SimpleLinkedListTest {
         array.add("first");
         array.add("second");
         array.add("third");
-        assertThat("third", is(array.get(2)));;
+        assertThat("third", is(array.get(2)));
     }
 
     @Test(expected = NoSuchElementException.class)
