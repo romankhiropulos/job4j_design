@@ -47,6 +47,10 @@ public class SimpleArray<T> implements Iterable<T> {
         return new SimpleItr();
     }
 
+    public int size() {
+        return indexCounter + 1;
+    }
+
     private class SimpleItr implements Iterator<T> {
 
         private int point = 0;
