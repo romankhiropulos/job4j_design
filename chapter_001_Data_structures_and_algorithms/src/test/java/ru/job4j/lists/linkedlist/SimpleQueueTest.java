@@ -34,6 +34,12 @@ public class SimpleQueueTest {
         queue.push(3);
         int rsl = queue.poll();
         assertThat(rsl, is(1));
+        queue.push(4);
+        rsl = queue.poll();
+        assertThat(rsl, is(2));
+        queue.push(5);
+        rsl = queue.poll();
+        assertThat(rsl, is(3));
     }
 
     @Test
