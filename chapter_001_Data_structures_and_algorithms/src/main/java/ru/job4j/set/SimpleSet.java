@@ -3,6 +3,7 @@ package ru.job4j.set;
 import ru.job4j.generics.simplearray.SimpleArray;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class SimpleSet<T> implements Iterable<T> {
     private SimpleArray<T> storage;
@@ -15,13 +16,18 @@ public class SimpleSet<T> implements Iterable<T> {
         return storage.size();
     }
 
-    public boolean add(T item) {
+    public void add(T item) {
+        if (validate(storage, item)) {
+            storage.add(item);
+        }
+    }
+
+    private boolean validate(SimpleArray<T> storage, T item) {
         for (T current : storage) {
-            if (item.equals(current)) {
+            if (Objects.equals(item, current)) {
                 return false;
             }
         }
-        storage.add(item);
         return true;
     }
 

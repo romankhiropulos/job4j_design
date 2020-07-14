@@ -36,7 +36,8 @@ public class SimpleSetTest {
     public void whenAddSameThenFalse() {
         SimpleSet<String> set = new SimpleSet<>(10);
         set.add("first");
-        assertFalse(set.add("first"));
+        set.add("first");
+        assertEquals(1, set.size());
     }
 
     @Test(expected = NoSuchElementException.class)

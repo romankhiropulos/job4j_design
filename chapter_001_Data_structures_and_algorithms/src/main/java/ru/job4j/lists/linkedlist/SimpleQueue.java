@@ -18,12 +18,14 @@ public class SimpleQueue<T> {
     }
 
     public T poll() {
-        exchange(in, out);
         T result = out.pop();
+        if (result == null) {
+            exchange(in, out);
+            result = out.pop();
+        }
         if (result == null) {
             throw new NoSuchElementException();
         }
-        exchange(out, in);
         return result;
     }
 
