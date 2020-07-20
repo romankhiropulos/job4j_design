@@ -22,27 +22,27 @@ public class SimpleArrayTest {
     }
 
     @Test
-    public void add() {
+    public void whenAddOneThenCheckIt() {
         simpleArray.add(44);
         assertSize(4);
         assertEquals(of(44).get(), ofNullable(simpleArray.get(3)).get());
     }
 
     @Test
-    public void get() {
+    public void whenGetThreeThenCheckIt() {
         assertEquals(of(33).get(), ofNullable(simpleArray.get(2)).get());
         assertEquals(of(22).get(), ofNullable(simpleArray.get(1)).get());
         assertEquals(of(11).get(), ofNullable(simpleArray.get(0)).get());
     }
 
     @Test
-    public void set() {
+    public void whenSetOneThenCheckIt() {
         simpleArray.set(1, 222);
         assertEquals(of(222).get(), ofNullable(simpleArray.get(1)).get());
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void remove() {
+    public void whenRemoveOneThenCheckSizeAndThisPoint() {
         simpleArray.remove(2);
         assertSize(2);
         simpleArray.get(33);

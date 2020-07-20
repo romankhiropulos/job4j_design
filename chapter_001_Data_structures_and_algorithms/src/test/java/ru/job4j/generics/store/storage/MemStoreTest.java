@@ -50,27 +50,27 @@ public abstract class MemStoreTest {
     }
 
     @Test(expected = StorageException.class)
-    public void add() {
+    public void whenAdd() {
         storage.add(USER_4);
         assertEquals(USER_4, storage.findById(USER_4.getId()));
         storage.add(USER_1);
     }
 
     @Test
-    public void replace() {
+    public void whenReplaceThenCheck() {
         assertTrue(storage.replace("333", USER_4));
         assertEquals(USER_4, storage.findById("444"));
         assertFalse(storage.replace("333", USER_4));
     }
 
     @Test
-    public void delete() {
+    public void whenDeleteOneThenNull() {
         storage.delete("111");
         assertNull(storage.findById("111"));
     }
 
     @Test
-    public void findById() {
+    public void whenFindByIdThenCheckThis() {
         assertNull(storage.findById("555"));
         storage.findById("");
         assertEquals(USER_1, storage.findById("111"));
