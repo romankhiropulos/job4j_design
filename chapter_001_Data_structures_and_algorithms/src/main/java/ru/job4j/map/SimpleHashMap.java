@@ -14,12 +14,26 @@ import java.util.Objects;
  * Внутренняя реализация должна использовать массив. Нужно обеспечить фиксированное время вставки
  * и получение. Предусмотрите возможность роста хэш-таблицы при нехватке места для нового элемента.
  * <p>
- * Методы разрешения коллизий реализовывать не надо. Например: если при добавлении ключ уже есть, то возвращать false.
+ * Методы разрешения коллизий реализовывать не надо.
+ * Например: если при добавлении ключ уже есть, то возвращать false.
  */
 public class SimpleHashMap<K, V> {
+
     private Node<K, V>[] table;
 
     private int size;
+
+    private float loadFactor;
+
+    private int modCount;
+
+    static final float DEFAULT_LOAD_FACTOR = 0.75f;
+
+    private int threshold;
+
+    public SimpleHashMap() {
+        this.loadFactor = DEFAULT_LOAD_FACTOR;
+    }
 
     boolean insert(K key, V value) {
         return false;
