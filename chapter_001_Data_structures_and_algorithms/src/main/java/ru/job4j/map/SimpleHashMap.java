@@ -1,5 +1,6 @@
 package ru.job4j.map;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -19,24 +20,46 @@ import java.util.Objects;
  */
 public class SimpleHashMap<K, V> {
 
+    private int capacity = 16;
+
     private Node<K, V>[] table;
 
     private int size;
 
-    private float loadFactor;
+    private int threshold;
+
+    private float loadFactor = 0.75f;
 
     private int modCount;
 
-    static final float DEFAULT_LOAD_FACTOR = 0.75f;
-
-    private int threshold;
+    // private int threshold = makeTreshold(table.length, );
 
     public SimpleHashMap() {
-        this.loadFactor = DEFAULT_LOAD_FACTOR;
+        table = (Node<K, V>[]) new Node[capacity];
+        threshold = (int) (capacity * loadFactor);
+    }
+
+    boolean checkBucket(int hash) {
+        return table[(table.length - 1) & hash] == null;
     }
 
     boolean insert(K key, V value) {
+        int hash = hash(key);
+        int index = (table.length - 1) & hash;
+        if (checkBucket(hash)) {
+            table[index] = new Node<>(hash, key, value);
+            size++;
+            modCount++;
+            if (size > threshold) {
+                resize();
+            }
+            return true;
+        }
         return false;
+    }
+
+    private void resize() {
+
     }
 
     V get(K key) {
@@ -55,17 +78,23 @@ public class SimpleHashMap<K, V> {
         return (key == null) ? 0 : h ^ (h >>> 16);
     }
 
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     static class Node<K, V> implements Map.Entry<K, V> {
         final int hash;
         final K key;
         V value;
-        Node<K, V> next;
 
-        Node(int hash, K key, V value, Node<K, V> next) {
+        Node(int hash, K key, V value) {
             this.hash = hash;
             this.key = key;
             this.value = value;
-            this.next = next;
         }
 
         public final K getKey() {
