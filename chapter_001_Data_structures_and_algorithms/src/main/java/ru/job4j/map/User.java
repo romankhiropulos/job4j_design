@@ -16,6 +16,18 @@ public class User {
         this.birthday = birthday;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setChildren(int children) {
+        this.children = children;
+    }
+
+    public void setBirthday(Calendar birthday) {
+        this.birthday = birthday;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

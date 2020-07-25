@@ -1,6 +1,5 @@
 package ru.job4j.map;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -20,33 +19,38 @@ import java.util.Objects;
  */
 public class SimpleHashMap<K, V> {
 
-    private int capacity = 16;
+    private int capacity = 64;
 
-    private Node<K, V>[] table;
+    private Node<K, V>[] table = (Node<K, V>[]) new Node[capacity];
 
     private int size;
-
-    private int threshold;
 
     private float loadFactor = 0.75f;
 
     private int modCount;
 
-    // private int threshold = makeTreshold(table.length, );
+    private int threshold;
 
     public SimpleHashMap() {
-        table = (Node<K, V>[]) new Node[capacity];
-        threshold = (int) (capacity * loadFactor);
+        threshold = makeThreshold();
     }
 
-    boolean checkBucket(int hash) {
+    private int makeThreshold() {
+        return (int) (table.length * loadFactor);
+    }
+
+    boolean isEmptyBucket(int hash) {
         return table[(table.length - 1) & hash] == null;
+    }
+
+    private int getIndex(int hash) {
+        return (table.length - 1) & hash;
     }
 
     boolean insert(K key, V value) {
         int hash = hash(key);
-        int index = (table.length - 1) & hash;
-        if (checkBucket(hash)) {
+        int index = getIndex(hash);
+        if (isEmptyBucket(hash)) {
             table[index] = new Node<>(hash, key, value);
             size++;
             modCount++;
@@ -54,20 +58,50 @@ public class SimpleHashMap<K, V> {
                 resize();
             }
             return true;
+        } else if (table[index].key == null) {
+            table[index].value = value;
+            return true;
+        } else if (table[index].key == key || table[index].key.equals(key)) {
+            table[index].value = value;
+            return true;
         }
         return false;
     }
 
     private void resize() {
-
+        Node<K, V>[] oldTable = table;
+        capacity = 2 * capacity;
+        table = (Node<K, V>[]) new Node[capacity];
+        threshold = makeThreshold();
+        for (int i = 0; i < oldTable.length; i++) {
+            if (oldTable[i] != null) {
+                table[getIndex(hash(oldTable[i].key))] = oldTable[i];
+            }
+        }
+        modCount++;
     }
 
     V get(K key) {
-        return null;
+        return isEmptyBucket(hash(key)) ? null : table[getIndex(hash(key))].value;
     }
 
     boolean delete(K key) {
+        Node<K, V> current = table[getIndex(hash(key))];
+        if (!isEmptyBucket(hash(key)) && current.key != null) {
+            if (current.hash == hash(key) && current.key.equals(key)) {
+                return doDelete(key);
+            }
+        } else if (!isEmptyBucket(hash(key)) && current.key == null && key == null) {
+            return doDelete(null);
+        }
         return false;
+    }
+
+    boolean doDelete(K key) {
+        table[getIndex(hash(key))] = null;
+        size--;
+        modCount++;
+        return true;
     }
 
     static final int hash(Object key) {
@@ -78,8 +112,16 @@ public class SimpleHashMap<K, V> {
         return (key == null) ? 0 : h ^ (h >>> 16);
     }
 
-    public int size() {
+    public int getSize() {
         return size;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getModCount() {
+        return modCount;
     }
 
     public boolean isEmpty() {
