@@ -3,9 +3,12 @@ package ru.job4j.map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.job4j.iterators.FlatMap;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -120,5 +123,19 @@ public class SimpleHashMapTest {
         assertFalse(map.delete(USER_4));
         assertTrue(map.delete(null));
         assertFalse(map.delete(null));
+    }
+
+    @Test
+    public void whenSeqNext() {
+        map.insert(USER_1, LAST_NAME_1);
+        map.insert(USER_2, LAST_NAME_2);
+        map.insert(USER_3, LAST_NAME_3);
+        map.insert(USER_4, LAST_NAME_4);
+        Iterator<SimpleHashMap.Node<User, String>> iterator = map.iterator();
+
+        assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_1, LAST_NAME_1)));
+        //assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_2, LAST_NAME_2)));
+        assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_3, LAST_NAME_3)));
+        //assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_4, LAST_NAME_4)));
     }
 }

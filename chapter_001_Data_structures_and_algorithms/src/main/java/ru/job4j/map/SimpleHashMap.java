@@ -1,7 +1,8 @@
 package ru.job4j.map;
 
-import java.util.Map;
-import java.util.Objects;
+import ru.job4j.lists.dynamicarray.SimpleArrayList;
+
+import java.util.*;
 
 /**
  * Ассоциативный массив на базе хэш-таблицы должен быть унифицирован через генерики и иметь методы:
@@ -17,7 +18,7 @@ import java.util.Objects;
  * Методы разрешения коллизий реализовывать не надо.
  * Например: если при добавлении ключ уже есть, то возвращать false.
  */
-public class SimpleHashMap<K, V> {
+public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
 
     private int capacity = 64;
 
@@ -82,7 +83,15 @@ public class SimpleHashMap<K, V> {
     }
 
     V get(K key) {
-        return isEmptyBucket(hash(key)) ? null : table[getIndex(hash(key))].value;
+        Node<K, V> current = table[getIndex(hash(key))];
+        if (!isEmptyBucket(hash(key)) && current.key != null) {
+            if (current.hash == hash(key) && current.key.equals(key)) {
+                return current.value;
+            }
+        } else if (!isEmptyBucket(hash(key)) && current.key == null && key == null) {
+            return current.value;
+        }
+        return null;
     }
 
     boolean delete(K key) {
@@ -128,10 +137,59 @@ public class SimpleHashMap<K, V> {
         return size == 0;
     }
 
+    @Override
+    public Iterator<Node<K, V>> iterator() {
+        return new SimpleItr();
+    }
+
+    private class SimpleItr implements Iterator<Node<K, V>> {
+
+        private final int expectedModCount = modCount;
+
+        private int point = 0;
+
+        private Node<K, V>[] iterTable;
+
+        public SimpleItr() {
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
+            if (iterTable == null) {
+                iterTable = (Node<K, V>[]) new Node[size];
+                int iterTableIndex = 0;
+                for (int i = 0; i < table.length; i++) {
+                    if (table[i] != null) {
+                        iterTable[iterTableIndex] = table[i];
+                        iterTableIndex++;
+                    }
+                }
+            }
+            return point < size;
+        }
+
+        @Override
+        public Node<K, V> next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return iterTable[point++];
+        }
+    }
+
     static class Node<K, V> implements Map.Entry<K, V> {
         final int hash;
         final K key;
         V value;
+
+        public Node(K key, V value) {
+            this.hash = hash(key);
+            this.key = key;
+            this.value = value;
+        }
 
         Node(int hash, K key, V value) {
             this.hash = hash;
@@ -161,17 +219,37 @@ public class SimpleHashMap<K, V> {
             return oldValue;
         }
 
-        public final boolean equals(Object o) {
-            if (o == this) {
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
                 return true;
             }
-            if (o instanceof Map.Entry) {
-                Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
-                if (Objects.equals(key, e.getKey()) && Objects.equals(value, e.getValue())) {
-                    return true;
-                }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
             }
-            return false;
+
+            Node<?, ?> node = (Node<?, ?>) o;
+
+            if (hash != node.hash) {
+                return false;
+            }
+            if (!Objects.equals(key, node.key)) {
+                return false;
+            }
+            return Objects.equals(value, node.value);
         }
+
+        //        public final boolean equals(Object o) {
+//            if (o == this) {
+//                return true;
+//            }
+//            if (o instanceof Map.Entry) {
+//                Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
+//                if (Objects.equals(key, e.getKey()) && Objects.equals(value, e.getValue())) {
+//                    return true;
+//                }
+//            }
+//            return false;
+//        }
     }
 }
