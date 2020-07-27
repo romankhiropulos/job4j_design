@@ -1,14 +1,12 @@
 package ru.job4j.map;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ru.job4j.iterators.FlatMap;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -132,10 +130,24 @@ public class SimpleHashMapTest {
         map.insert(USER_3, LAST_NAME_3);
         map.insert(USER_4, LAST_NAME_4);
         Iterator<SimpleHashMap.Node<User, String>> iterator = map.iterator();
-
         assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_1, LAST_NAME_1)));
-        //assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_2, LAST_NAME_2)));
         assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_3, LAST_NAME_3)));
-        //assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_4, LAST_NAME_4)));
+        assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_2, LAST_NAME_2)));
+        assertThat(iterator.next(), is(new SimpleHashMap.Node<>(USER_4, LAST_NAME_4)));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenEmpty() {
+        Iterator<SimpleHashMap.Node<User, String>> iterator = map.iterator();
+        iterator.next();
+    }
+
+    @Test
+    public void whenSeqHasNext() {
+        map.insert(null, null);
+        Iterator<SimpleHashMap.Node<User, String>> iterator = map.iterator();
+        assertTrue(iterator.hasNext());
+        assertThat(iterator.next(), is(new SimpleHashMap.Node<>(null, null)));
+        assertFalse(iterator.hasNext());
     }
 }

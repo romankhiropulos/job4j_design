@@ -1,7 +1,5 @@
 package ru.job4j.map;
 
-import ru.job4j.lists.dynamicarray.SimpleArrayList;
-
 import java.util.*;
 
 /**
@@ -238,18 +236,5 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
             }
             return Objects.equals(value, node.value);
         }
-
-        //        public final boolean equals(Object o) {
-//            if (o == this) {
-//                return true;
-//            }
-//            if (o instanceof Map.Entry) {
-//                Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
-//                if (Objects.equals(key, e.getKey()) && Objects.equals(value, e.getValue())) {
-//                    return true;
-//                }
-//            }
-//            return false;
-//        }
     }
 }
