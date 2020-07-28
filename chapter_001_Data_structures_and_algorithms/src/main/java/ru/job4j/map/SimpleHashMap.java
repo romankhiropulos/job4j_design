@@ -57,10 +57,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
                 resize();
             }
             return true;
-        } else if (table[index].key == null) {
-            table[index].value = value;
-            return true;
-        } else if (table[index].key == key || table[index].key.equals(key)) {
+        } else if (Objects.equals(table[index].key, key)) {
             table[index].value = value;
             return true;
         }
@@ -82,26 +79,12 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
 
     V get(K key) {
         Node<K, V> current = table[getIndex(hash(key))];
-        if (!isEmptyBucket(hash(key)) && current.key != null) {
-            if (current.hash == hash(key) && current.key.equals(key)) {
-                return current.value;
-            }
-        } else if (!isEmptyBucket(hash(key)) && current.key == null && key == null) {
-            return current.value;
-        }
-        return null;
+        return current != null && Objects.equals(current.key, key) ? current.value : null;
     }
 
     boolean delete(K key) {
         Node<K, V> current = table[getIndex(hash(key))];
-        if (!isEmptyBucket(hash(key)) && current.key != null) {
-            if (current.hash == hash(key) && current.key.equals(key)) {
-                return doDelete(key);
-            }
-        } else if (!isEmptyBucket(hash(key)) && current.key == null && key == null) {
-            return doDelete(null);
-        }
-        return false;
+        return current != null && Objects.equals(current.key, key) ? doDelete(key) : false;
     }
 
     boolean doDelete(K key) {
