@@ -127,9 +127,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
 
         private final int expectedModCount = modCount;
 
-        private int point = 0;
-
-        private Node<K, V>[] iterTable;
+        private int point;
 
         public SimpleItr() {
         }
@@ -139,17 +137,14 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
             if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            if (iterTable == null) {
-                iterTable = (Node<K, V>[]) new Node[size];
-                int iterTableIndex = 0;
-                for (int i = 0; i < table.length; i++) {
-                    if (table[i] != null) {
-                        iterTable[iterTableIndex] = table[i];
-                        iterTableIndex++;
+            if (table != null) {
+                for (; point < table.length; point++) {
+                    if (table[point] != null) {
+                        return true;
                     }
                 }
             }
-            return point < size;
+            return false;
         }
 
         @Override
@@ -157,7 +152,7 @@ public class SimpleHashMap<K, V> implements Iterable<SimpleHashMap.Node<K, V>> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            return iterTable[point++];
+            return table[point++];
         }
     }
 
