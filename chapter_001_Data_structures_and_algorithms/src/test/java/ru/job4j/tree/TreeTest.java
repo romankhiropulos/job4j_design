@@ -24,10 +24,10 @@ public class TreeTest {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
         tree.add(1, 3);
-        tree.add(3, 4);
-        tree.add(4, 6);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        tree.add(2, 6);
         tree.add(4, 7);
-        tree.add(4, 5);
         assertThat(tree.isBinary(), is(false));
     }
 
@@ -36,9 +36,9 @@ public class TreeTest {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
         tree.add(1, 3);
+        tree.add(3, 4);
         tree.add(4, 5);
         tree.add(4, 6);
-        tree.add(5, 7);
         assertThat(tree.isBinary(), is(true));
     }
 

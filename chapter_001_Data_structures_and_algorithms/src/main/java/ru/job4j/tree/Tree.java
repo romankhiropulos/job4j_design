@@ -39,16 +39,15 @@ class Tree<E> implements SimpleTree<E> {
     public boolean isBinary() {
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
-        int size;
-        while (!data.isEmpty()) {
-            size = data.size();
-            if (size > 2) {
-                return false;
-            }
-            Node<E> el = data.poll();
-            data.addAll(Objects.requireNonNull(el).getChildren());
+        Node<E> element = data.poll();
+        int size = Objects.requireNonNull(element).getChildren().size();
+        data.addAll(Objects.requireNonNull(element).getChildren());
+        while (!data.isEmpty() && size <= 2) {
+            element = data.poll();
+            size = Objects.requireNonNull(element).getChildren().size();
+            data.addAll(Objects.requireNonNull(element).getChildren());
         }
-        return true;
+        return size <= 2;
     }
 
     @Override
@@ -57,12 +56,12 @@ class Tree<E> implements SimpleTree<E> {
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
         while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (el.getValue().equals(value)) {
-                result = Optional.of(el);
+            Node<E> element = data.poll();
+            if (element.getValue().equals(value)) {
+                result = Optional.of(element);
                 break;
             }
-            data.addAll(el.getChildren());
+            data.addAll(element.getChildren());
         }
         return result;
     }
