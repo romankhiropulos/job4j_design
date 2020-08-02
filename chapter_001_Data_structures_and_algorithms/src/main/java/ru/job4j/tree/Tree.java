@@ -19,12 +19,36 @@ class Tree<E> implements SimpleTree<E> {
 
     @Override
     public boolean add(E parent, E child) {
-        Optional<Node<E>> root = findBy(parent);
-        if (root.isPresent()) {
-            root.get().getChildren().add(new Node<>(child));
+        Optional<Node<E>> currentRoot = findBy(parent);
+        if (currentRoot.isPresent()) {
+            for (Node<E> item : currentRoot.get().getChildren()) {
+                if (Objects.equals(item.getValue(), child)) {
+                    return false;
+                }
+            }
+            currentRoot.get().getChildren().add(new Node<>(child));
             return true;
         }
         return false;
+    }
+
+    /**
+     * Метод должен циклически пройти по всем элементам дерева, аналогично методу findBy
+     *
+     */
+    public boolean isBinary() {
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        int size;
+        while (!data.isEmpty()) {
+            size = data.size();
+            if (size > 2) {
+                return false;
+            }
+            Node<E> el = data.poll();
+            data.addAll(Objects.requireNonNull(el).getChildren());
+        }
+        return true;
     }
 
     @Override
