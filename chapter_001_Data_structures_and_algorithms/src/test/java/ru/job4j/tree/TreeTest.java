@@ -46,7 +46,10 @@ public class TreeTest {
     public void whenChildAlreadyContainsThenFalse() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
+        tree.add(2, 3);
+        tree.add(2, 4);
         assertThat(tree.add(1, 2), is(false));
+        assertThat(tree.add(2, 3), is(false));
     }
 
     @Test
