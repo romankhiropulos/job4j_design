@@ -22,39 +22,51 @@ class Tree<E> implements SimpleTree<E> {
         Optional<Node<E>> currentRoot = findBy(parent);
         return currentRoot.isPresent()
                 && findBy(child).isEmpty()
-                && currentRoot.get().getChildren().add(new Node<>(child));
+                && getChildren(currentRoot.get()).add(new Node<>(child));
     }
 
     /**
      * Метод должен циклически пройти по всем элементам дерева, аналогично методу findBy
      */
     public boolean isBinary() {
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        Node<E> element = data.poll();
-        int size = Objects.requireNonNull(element).getChildren().size();
-        data.addAll(Objects.requireNonNull(element).getChildren());
-        while (!data.isEmpty() && size <= 2) {
-            element = data.poll();
-            size = Objects.requireNonNull(element).getChildren().size();
-            data.addAll(Objects.requireNonNull(element).getChildren());
+        Queue<Node<E>> data = getAndOfferData();
+        Node<E> element = getNextAndFillData(data);
+        while (!data.isEmpty() && getSize(element) <= 2) {
+            element = getNextAndFillData(data);
         }
-        return size <= 2;
+        return getSize(element) <= 2;
     }
 
     @Override
     public Optional<Node<E>> findBy(E value) {
-        Optional<Node<E>> result = Optional.empty();
+        Queue<Node<E>> data = getAndOfferData();
+        Node<E> element;
+        while (!data.isEmpty()) {
+            element = getNextAndFillData(data);
+            if (element.getValue().equals(value)) {
+                return Optional.of(element);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Node<E> getNextAndFillData(Queue<Node<E>> data) {
+        Node<E> element = data.poll();
+        data.addAll(getChildren(element));
+        return element;
+    }
+
+    private Queue<Node<E>> getAndOfferData() {
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> element = data.poll();
-            if (element.getValue().equals(value)) {
-                result = Optional.of(element);
-                break;
-            }
-            data.addAll(element.getChildren());
-        }
-        return result;
+        return data;
+    }
+
+    private List<Node<E>> getChildren(Node<E> element) {
+        return Objects.requireNonNull(element).getChildren();
+    }
+
+    private int getSize(Node<E> element) {
+        return getChildren(element).size();
     }
 }
