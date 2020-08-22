@@ -16,11 +16,10 @@ public class TreeTest {
         tree.add(4, 6);
         tree.add(5, 7);
         assertThat(tree.findBy(6).isPresent(), is(true));
-        assertThat(tree.isBinary(), is(false));
     }
 
     @Test
-    public void whenTreeIsBinaryThenFalse() {
+    public void whenTreeIsNotBinaryThenFalse() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
         tree.add(1, 3);
@@ -68,12 +67,6 @@ public class TreeTest {
 
     @Test(expected = NullPointerException.class)
     public void whenChildNullValueThenNPE() {
-        Tree<Integer> tree = new Tree<>(1);
-        tree.add(1, null);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void whenChildConsistNullThenFalse() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, null);
     }

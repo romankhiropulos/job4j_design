@@ -1,6 +1,7 @@
 package ru.job4j.tree;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * В классе ru.job4j.tree.Tree уже реализован метод findBy.
@@ -25,35 +26,34 @@ class Tree<E> implements SimpleTree<E> {
                 && getChildren(currentRoot.get()).add(new Node<>(child));
     }
 
-    /**
-     * Метод должен циклически пройти по всем элементам дерева, аналогично методу findBy
-     */
     public boolean isBinary() {
-        Queue<Node<E>> data = getAndOfferData();
-        Node<E> element = getNextAndFillData(data);
-        while (!data.isEmpty() && getSize(element) <= 2) {
-            element = getNextAndFillData(data);
-        }
-        return getSize(element) <= 2;
+        return findByPredicate(t -> (getSize(t) > 2), null) == null;
     }
 
     @Override
     public Optional<Node<E>> findBy(E value) {
+        Node<E> result = findByPredicate(t -> t.getValue().equals(value), value);
+        return result == null ? Optional.empty() : Optional.of(result);
+    }
+
+    private Node<E> findByPredicate(Predicate<Node<E>> condition, E value) {
         Queue<Node<E>> data = getAndOfferData();
-        Node<E> element;
+        Node<E> element = null;
+        boolean answer = false;
         while (!data.isEmpty()) {
             element = getNextAndFillData(data);
-            if (element.getValue().equals(value)) {
-                return Optional.of(element);
+            if (condition.test(element)) {
+                answer = true;
+                break;
             }
         }
-        return Optional.empty();
+        return answer ? element : null;
     }
 
     private Node<E> getNextAndFillData(Queue<Node<E>> data) {
         Node<E> element = data.poll();
         data.addAll(getChildren(element));
-        return element;
+        return  element;
     }
 
     private Queue<Node<E>> getAndOfferData() {
