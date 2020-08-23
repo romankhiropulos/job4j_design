@@ -27,16 +27,16 @@ class Tree<E> implements SimpleTree<E> {
     }
 
     public boolean isBinary() {
-        return findByPredicate(t -> (getSize(t) > 2), null) == null;
+        return findByPredicate(t -> (getSize(t) > 2)) == null;
     }
 
     @Override
     public Optional<Node<E>> findBy(E value) {
-        Node<E> result = findByPredicate(t -> t.getValue().equals(value), value);
+        Node<E> result = findByPredicate(t -> t.getValue().equals(value));
         return result == null ? Optional.empty() : Optional.of(result);
     }
 
-    private Node<E> findByPredicate(Predicate<Node<E>> condition, E value) {
+    private Node<E> findByPredicate(Predicate<Node<E>> condition) {
         Queue<Node<E>> data = getAndOfferData();
         Node<E> element = null;
         boolean answer = false;
