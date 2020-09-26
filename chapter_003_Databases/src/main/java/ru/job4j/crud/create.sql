@@ -1,4 +1,4 @@
--- user - role = many-to-one 
+-- user - role = many-to-one
 -- role - privileges = many-to-many
 -- item - user = many-to-one
 -- item - comments = one-to-many
