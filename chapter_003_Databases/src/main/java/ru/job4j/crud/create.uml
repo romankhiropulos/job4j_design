@@ -2,66 +2,11 @@
 <Diagram>
   <ID>DATABASE</ID>
   <OriginalElement>3fae888f-05f0-472f-af95-e21e195de178</OriginalElement>
-  <nodes>
-    <node x="222.75" y="0.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.privilege</node>
-    <node x="378.25" y="191.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.category</node>
-    <node x="47.75" y="0.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.role</node>
-    <node x="0.0" y="131.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.users</node>
-    <node x="553.25" y="191.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.state</node>
-    <node x="198.25" y="179.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.roles_privileges</node>
-    <node x="477.25" y="585.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.comment</node>
-    <node x="266.25" y="585.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.attachment</node>
-    <node x="360.25" y="382.0">3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.item</node>
-  </nodes>
+  <nodes />
   <notes />
-  <edges>
-    <edge source="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.item" target="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.state">
-      <point x="63.666666666666686" y="-76.5" />
-      <point x="519.4166666666667" y="357.0" />
-      <point x="630.75" y="357.0" />
-      <point x="0.0" y="40.5" />
-    </edge>
-    <edge source="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.item" target="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.users">
-      <point x="-63.66666666666666" y="-76.5" />
-      <point x="392.08333333333337" y="357.0" />
-      <point x="86.5" y="357.0" />
-      <point x="0.0" y="100.5" />
-    </edge>
-    <edge source="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.item" target="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.category">
-      <point x="0.0" y="-76.5" />
-      <point x="0.0" y="40.5" />
-    </edge>
-    <edge source="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.comment" target="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.item">
-      <point x="0.0" y="-52.5" />
-      <point x="549.75" y="560.0" />
-      <point x="503.5" y="560.0" />
-      <point x="47.75" y="76.5" />
-    </edge>
-    <edge source="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.roles_privileges" target="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.role">
-      <point x="-40.0" y="-52.5" />
-      <point x="238.25" y="106.0" />
-      <point x="164.0" y="106.0" />
-      <point x="38.75" y="40.5" />
-    </edge>
-    <edge source="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.users" target="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.role">
-      <point x="0.0" y="-100.5" />
-      <point x="-38.75" y="40.5" />
-    </edge>
-    <edge source="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.attachment" target="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.item">
-      <point x="0.0" y="-52.5" />
-      <point x="361.75" y="560.0" />
-      <point x="408.0" y="560.0" />
-      <point x="-47.75" y="76.5" />
-    </edge>
-    <edge source="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.roles_privileges" target="3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.privilege">
-      <point x="40.0" y="-52.5" />
-      <point x="0.0" y="40.5" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="354.5" y="345.0" />
-  <SelectedNodes>
-    <node>3fae888f-05f0-472f-af95-e21e195de178.TABLE:job4j_crud.public.privilege</node>
-  </SelectedNodes>
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="240.0" y="240.0" />
+  <SelectedNodes />
   <Categories>
     <Category>Key columns</Category>
     <Category>Columns</Category>
