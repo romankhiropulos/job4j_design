@@ -76,13 +76,13 @@ FROM car c
 SELECT b.*
 FROM body b
          LEFT OUTER JOIN car c ON b.id = c.body_id
-WHERE c.id IS NULL
-UNION ALL
+WHERE c.id IS NULL;
+
 SELECT e.*
 FROM engine e
          LEFT JOIN car c2 ON e.id = c2.engine_id
-WHERE c2.id IS NULL
-UNION ALL
+WHERE c2.id IS NULL;
+
 SELECT t.*
 FROM transmission t
          LEFT OUTER JOIN car c3 ON t.id = c3.transmission_id
