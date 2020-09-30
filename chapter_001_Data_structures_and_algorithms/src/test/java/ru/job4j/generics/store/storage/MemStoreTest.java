@@ -2,15 +2,9 @@ package ru.job4j.generics.store.storage;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import ru.job4j.generics.store.Store;
-import ru.job4j.generics.store.exceptions.ExistStorageException;
-import ru.job4j.generics.store.exceptions.NotExistStorageException;
 import ru.job4j.generics.store.exceptions.StorageException;
-import ru.job4j.generics.store.model.Base;
 import ru.job4j.generics.store.model.User;
-
-import java.util.UUID;
 
 import static org.junit.Assert.*;
 
