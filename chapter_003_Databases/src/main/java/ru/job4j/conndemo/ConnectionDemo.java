@@ -25,6 +25,5 @@ public class ConnectionDemo {
         } catch (IOException e) {
             throw new IllegalStateException("Invalid config file " + PROPS);
         }
-
     }
 }
