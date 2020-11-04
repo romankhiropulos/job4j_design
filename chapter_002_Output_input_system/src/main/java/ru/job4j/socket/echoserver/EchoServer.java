@@ -6,15 +6,23 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Objects;
 
 public class EchoServer {
-    private static final String OK_CODE = "HTTP/1.1 200 OK\r\n\\";
-    private static final String CLOSE_CODE = "GET /?msg=Buy HTTP/1.1";
+    private static final String OK_CODE = "HTTP/1.1 200 OK\r\n\r\n";
+    private static final String CLOSE_CODE = "GET /?msg=Exit";
+    private static final String HELLO_CODE = "GET /?msg=Hello";
     private static final int PORT_LOCAL_HOST = 9000;
+    private static final String HELLO_MSG = "Hello, dear friend.\n";
+    private static final String EXIT_MSG = "Exit.\n";
 
     public static void main(String[] args) throws IOException {
+        new EchoServer().runEchoServer();
+    }
+
+    public void runEchoServer() throws IOException {
         try (ServerSocket server = new ServerSocket(PORT_LOCAL_HOST)) {
-            boolean closeCheck = false;
+            String msgBody = "";
             while (true) {
                 Socket socket = server.accept();
                 try (OutputStream out = socket.getOutputStream();
@@ -22,19 +30,32 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     String str = in.readLine();
                     while (!str.isEmpty()) {
-                        if (str.contains(CLOSE_CODE)) {
-                            closeCheck = true;
-                            break;
+                        if (str.startsWith("GET")) {
+                            msgBody = getMsgBody(str);
                         }
                         System.out.println(str);
                         str = in.readLine();
                     }
-                    if (closeCheck) {
+
+                    out.write(OK_CODE.getBytes());
+                    out.write(msgBody.concat("\n").getBytes());
+                    if (Objects.equals(msgBody, EXIT_MSG)) {
                         break;
                     }
-                    out.write(OK_CODE.getBytes());
                 }
             }
         }
+    }
+
+    private String getMsgBody(String str) {
+        String result;
+        if (str.contains(CLOSE_CODE)) {
+            result = EXIT_MSG;
+        } else if (str.contains(HELLO_CODE)) {
+            result = HELLO_MSG;
+        } else {
+            result = str.split(" ")[1].substring(6);
+        }
+        return result;
     }
 }
