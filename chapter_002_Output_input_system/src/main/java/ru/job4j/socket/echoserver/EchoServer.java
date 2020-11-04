@@ -1,4 +1,4 @@
-package ru.job4j.echoserver;
+package ru.job4j.socket.echoserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,8 @@ public class EchoServer {
 
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(PORT_LOCAL_HOST)) {
-            outer: while (true) {
+            boolean closeCheck = false;
+            while (true) {
                 Socket socket = server.accept();
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
@@ -22,10 +23,14 @@ public class EchoServer {
                     String str = in.readLine();
                     while (!str.isEmpty()) {
                         if (str.contains(CLOSE_CODE)) {
-                            break outer;
+                            closeCheck = true;
+                            break;
                         }
                         System.out.println(str);
                         str = in.readLine();
+                    }
+                    if (closeCheck) {
+                        break;
                     }
                     out.write(OK_CODE.getBytes());
                 }
