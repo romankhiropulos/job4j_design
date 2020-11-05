@@ -23,10 +23,18 @@ public class UsageLog4j {
                 name, age, "\n", weight, height, students, "\n", courses, experience, level, javaDeveloper, "\n");
 
         System.out.printf("User info name : %s, age : %s%n", name, age);
+
         LOG.trace("trace message");
         LOG.debug("debug message");
         LOG.info("info message");
         LOG.warn("warn message");
-        LOG.error("error message");
+        LOG.error("error message\n");
+
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+//            LOG.error("Exception in log example", e);
+            LOG.error("Error - {}, User {}", e.getMessage(), "Petr", e);
+        }
     }
 }

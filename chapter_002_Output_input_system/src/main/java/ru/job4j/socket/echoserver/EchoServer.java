@@ -1,5 +1,9 @@
 package ru.job4j.socket.echoserver;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.job4j.logging.UsageLog4j;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +13,8 @@ import java.net.Socket;
 import java.util.Objects;
 
 public class EchoServer {
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
+
     private static final String OK_CODE = "HTTP/1.1 200 OK\r\n\r\n";
     private static final String CLOSE_CODE = "GET /?msg=Exit";
     private static final String HELLO_CODE = "GET /?msg=Hello";
@@ -16,8 +22,12 @@ public class EchoServer {
     private static final String HELLO_MSG = "Hello, dear friend.\n";
     private static final String EXIT_MSG = "Exit.\n";
 
-    public static void main(String[] args) throws IOException {
-        new EchoServer().runEchoServer();
+    public static void main(String[] args) {
+        try {
+            new EchoServer().runEchoServer();
+        } catch (IOException e) {
+            LOG.error("IOException", e);
+        }
     }
 
     public void runEchoServer() throws IOException {
