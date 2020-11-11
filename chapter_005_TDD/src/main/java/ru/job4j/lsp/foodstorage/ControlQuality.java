@@ -40,14 +40,14 @@ public class ControlQuality {
             createdDate = currFood.getCreateDate();
             expire = currFood.getExpireDate();
             if (checkShelfLife(createdDate, expire) > 0.25) {
-
+                System.out.println();
             }
         }
     }
 
     private double checkShelfLife(LocalDate createdDate, LocalDate expire) {
-        Period allPeriod = Period.between (createdDate, expire);
-        Period partOfPeriod = Period.between (LocalDate.now(), expire);
+        Period allPeriod = Period.between(createdDate, expire);
+        Period partOfPeriod = Period.between(LocalDate.now(), expire);
         return ((double) partOfPeriod.getDays()) / (double) allPeriod.getDays();
     }
 }

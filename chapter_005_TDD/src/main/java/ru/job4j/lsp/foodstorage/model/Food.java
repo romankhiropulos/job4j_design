@@ -63,14 +63,18 @@ public abstract class Food {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Food food = (Food) o;
-        return Double.compare(food.price, price) == 0 &&
-                Double.compare(food.discount, discount) == 0 &&
-                Objects.equals(name, food.name) &&
-                Objects.equals(createDate, food.createDate) &&
-                Objects.equals(expireDate, food.expireDate);
+        return Double.compare(food.price, price) == 0
+                && Double.compare(food.discount, discount) == 0
+                && Objects.equals(name, food.name)
+                && Objects.equals(createDate, food.createDate)
+                && Objects.equals(expireDate, food.expireDate);
     }
 
     @Override

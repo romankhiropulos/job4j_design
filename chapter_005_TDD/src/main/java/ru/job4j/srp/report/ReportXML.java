@@ -12,6 +12,22 @@ public class ReportXML extends ReportProgrammers {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        return super.generate(filter);
+        StringBuilder xmlText = new StringBuilder();
+        xmlText.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>").append(System.lineSeparator());
+        for (Employee employee : store.findBy(filter)) {
+            xmlText.append("<employee>")
+                    .append(System.lineSeparator())
+                    .append("  ").append("<name>").append(employee.getName()).append("</name>")
+                    .append(System.lineSeparator())
+                    .append("  ").append("<hired>").append(employee.getHired()).append("</hired>")
+                    .append(System.lineSeparator())
+                    .append("  ").append("<fired>").append(employee.getFired()).append("</fired>")
+                    .append(System.lineSeparator())
+                    .append("  ").append("<salary>").append(employee.getSalary()).append("</salary>")
+                    .append(System.lineSeparator())
+                    .append("</employee>");
+        }
+
+        return xmlText.toString();
     }
 }

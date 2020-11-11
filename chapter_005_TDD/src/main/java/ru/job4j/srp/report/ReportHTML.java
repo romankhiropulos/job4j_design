@@ -25,13 +25,13 @@ public class ReportHTML extends ReportProgrammers {
         htmlText.append("<p>Name; Hired; Fired; Salary;</p>").append(System.lineSeparator());
         htmlText.append("<p>Name; Hired; Fired; Salary;</p>").append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
-            htmlText.append("<p>").append(employee.getName()).append(";").append("<p>")
+            htmlText.append("<p>").append(employee.getName()).append(";").append("</p>")
                     .append(System.lineSeparator())
-                    .append("<p>").append(employee.getHired()).append(";").append("<p>")
+                    .append("<p>").append(employee.getHired()).append(";").append("</p>")
                     .append(System.lineSeparator())
-                    .append("<p>").append(employee.getFired()).append(";").append("<p>")
+                    .append("<p>").append(employee.getFired()).append(";").append("</p>")
                     .append(System.lineSeparator())
-                    .append("<p>").append(employee.getSalary()).append(";").append("<p>")
+                    .append("<p>").append(employee.getSalary()).append(";").append("</p>")
                     .append(System.lineSeparator());
         }
         htmlText.append("</body>").append(System.lineSeparator());
