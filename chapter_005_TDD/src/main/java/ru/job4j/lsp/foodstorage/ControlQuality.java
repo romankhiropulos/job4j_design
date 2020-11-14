@@ -8,44 +8,48 @@ import ru.job4j.lsp.foodstorage.storage.Warehouse;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.List;
 
 public class ControlQuality {
-    Storage shop = new Shop();
-    Storage trash = new Trash();
-    Storage warehouse = new Warehouse();
+    private Storage shop = new Shop();
+    private Storage trash = new Trash();
+    private Storage warehouse = new Warehouse();
+    private final Storage[] storages = {shop, trash, warehouse};
 
-    void redistributeProducts(Storage...storages) {
-        List<Food> foods;
+    /**
+     * restore() - Динамическое перераспределение продуктов
+     */
+    public void restore(Storage... storages) {
         for (Storage storage : storages) {
-            foods = storage.getAllFoods();
-            reviseStorage(foods);
+            reviseStorage(storage);
         }
     }
 
-    void reviseStorage(List<Food> foods) {
-//            3.1. Если срок годности израсходован меньше чем на 25% направить в Warehouse.
-//
-//            3.2 Если срок годности от 25% до 75% направить в Shop
-//
-//            3.3. Если срок годности больше 75% то выставить скидку на продукт и отправить в Shop
-//
-//            3.4. Если срок годности вышел. Отправить продукт в мусорку.
+    public void reviseStorage(Storage foods) {
         Food currFood;
         LocalDate createdDate;
         LocalDate expire;
-        int amountOfFoods = foods.size();
+        int amountOfFoods = foods.getAllFoods().size();
+        double resCheckExpire;
         for (int i = 0; i < amountOfFoods; i++) {
-            currFood = foods.get(i);
+            currFood = foods.getAllFoods().get(i);
             createdDate = currFood.getCreateDate();
             expire = currFood.getExpireDate();
-            if (checkShelfLife(createdDate, expire) > 0.25) {
-                System.out.println();
+            resCheckExpire = checkProductExpire(createdDate, expire);
+            foods.delete(i);
+            if (resCheckExpire < 0.25) {
+                warehouse.addFood(currFood);
+            } else if (resCheckExpire >= 0.25 && resCheckExpire <= 0.75) {
+                shop.addFood(currFood);
+            } else if (resCheckExpire > 0.75 && resCheckExpire < 1) {
+                currFood.changePriceByDiscount();
+                shop.addFood(currFood);
+            } else if (resCheckExpire >= 1) {
+                trash.addFood(currFood);
             }
         }
     }
 
-    private double checkShelfLife(LocalDate createdDate, LocalDate expire) {
+    private double checkProductExpire(LocalDate createdDate, LocalDate expire) {
         Period allPeriod = Period.between(createdDate, expire);
         Period partOfPeriod = Period.between(LocalDate.now(), expire);
         return ((double) partOfPeriod.getDays()) / (double) allPeriod.getDays();

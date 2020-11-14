@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface Storage {
-    void add(Food food);
+    void addFood(Food food);
 
-    boolean delete(String name, LocalDate created);
+    boolean delete(int index);
 
-    Food findByNameAndCreated(String name, LocalDate created);
+    Food findByFood(Food food);
 
     List<Food> getAllFoods();
 }

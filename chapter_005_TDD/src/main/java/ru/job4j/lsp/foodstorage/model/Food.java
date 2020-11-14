@@ -17,8 +17,7 @@ public abstract class Food {
         this.name = name;
         this.createDate = createDate;
         this.expireDate = expireDate;
-        this.discount = 0;
-        this.price = price * (1 - discount);
+        this.price = price;
     }
 
     public String getName() {
@@ -59,6 +58,10 @@ public abstract class Food {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public void changePriceByDiscount() {
+        price = price * (1 - discount);
     }
 
     @Override

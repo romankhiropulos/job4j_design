@@ -5,22 +5,23 @@ import ru.job4j.lsp.foodstorage.model.Food;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AbstractStorage implements Storage {
     List<Food> storage = new ArrayList<>();
 
     @Override
-    public void add(Food food) {
-
+    public void addFood(Food food) {
+        storage.add(food);
     }
 
     @Override
-    public boolean delete(String name, LocalDate created) {
-        return false;
+    public boolean delete(int index) {
+        return Objects.nonNull(storage.remove(index));
     }
 
     @Override
-    public Food findByNameAndCreated(String name, LocalDate created) {
+    public Food findByFood(Food food) {
         return null;
     }
 
