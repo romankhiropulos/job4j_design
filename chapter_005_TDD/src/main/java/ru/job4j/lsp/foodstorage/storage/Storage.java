@@ -8,9 +8,15 @@ import java.util.List;
 public interface Storage {
     void addFood(Food food);
 
-    boolean delete(int index);
+    boolean accept(Food food); // проверяет подходит ли еда под это хранилище. У каждого хранилища будет своя реализация
 
-    Food findByFood(Food food);
+    List<Food> clear(); // Очищает хранилище и возвращает то, что в нем бы
 
-    List<Food> getAllFoods();
+
+    // Done
+    // 2. В ControlQuality вы создаете список хранилищ
+    // private final List<Storage> storages ...
+    // 3. И метод distibute. В нем вы проходитесь по хранилищам.
+    // Если метод accept возвращаем true, то добавляете продукт
+    // в хранилище и выходите из цикла
 }
