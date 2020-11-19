@@ -9,4 +9,6 @@ public interface Parking {
     int getParkingSize();
 
     Car[] getParkingStorages();
+
+    Car getBackCar(Car car);
 }

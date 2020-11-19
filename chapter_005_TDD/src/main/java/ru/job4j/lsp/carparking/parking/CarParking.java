@@ -19,11 +19,16 @@ public class CarParking implements Parking {
 
     @Override
     public int getParkingSize() {
-        return carLimit;
+        return 3;
     }
 
     @Override
     public Car[] getParkingStorages() {
         return carStorage;
+    }
+
+    @Override
+    public Car getBackCar(Car car) {
+        return null;
     }
 }
