@@ -7,8 +7,8 @@ import ru.job4j.lsp.carparking.parking.CarParking;
 import ru.job4j.lsp.carparking.parking.Parking;
 
 public class ControllerParking {
-    private static final Parking PARKING_1 = new CarParking(10);
-    private static final Parking PARKING_2 = new CarParking(5);
+    private static final Parking PARKING_1 = new CarParking(10, 5);
+    private static final Parking PARKING_2 = new CarParking(5, 6);
 
     private static final Car PASSENGER_CAR_1 = new PassengerCar();
     private static final Car PASSENGER_CAR_2 = new PassengerCar();

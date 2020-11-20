@@ -2,13 +2,15 @@ package ru.job4j.lsp.carparking.parking;
 
 import ru.job4j.lsp.carparking.car.Car;
 
+import java.util.List;
+
 public interface Parking {
 
     boolean park(Car car);
 
     int getParkingSize();
 
-    Car[] getParkingStorages();
+    List<Car> getAllCar();
 
     Car getBackCar(Car car);
 }
