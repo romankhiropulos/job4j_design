@@ -12,5 +12,6 @@ public interface Parking {
 
     List<Car> getAllCar();
 
-    Car getBackCar(Car car);
+    Car getCar(Car car);
+
 }

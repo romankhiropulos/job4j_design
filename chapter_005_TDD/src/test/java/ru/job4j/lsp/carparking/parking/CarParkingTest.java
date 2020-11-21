@@ -14,17 +14,26 @@ import static org.junit.Assert.assertThat;
 public class CarParkingTest {
 
     @Test
-    public void park() {
+    public void whenParkTruckAndNoPlaceThen() {
         Car truck = new Truck();
-        Parking parking = new CarParking(10,2);
+        Parking parking = new CarParking(1, 0);
         parking.park(truck);
-        assertThat(parking.getBackCar(truck), is(truck));
+        assertThat(parking.getParkingSize(), is(0));
+    }
+
+    @Test
+    public void whenParkThen() {
+        Car truck = new PassengerCar();
+        Parking parking = new CarParking(10, 3);
+        parking.park(truck);
+        assertThat(parking.getParkingSize(), is(1));
+        assertThat(parking.getCar(truck), is(truck));
     }
 
     @Test
     public void getParkingSize() {
         Car truck = new Truck();
-        Parking parking = new CarParking(10,2);
+        Parking parking = new CarParking(10, 2);
         parking.park(truck);
         assertThat(parking.getParkingSize(), is(1));
     }
@@ -33,19 +42,18 @@ public class CarParkingTest {
     public void getAllCar() {
         Car car = new PassengerCar();
         Car truck = new Truck();
-        Parking parking = new CarParking(10,2);
+        Parking parking = new CarParking(10, 2);
         parking.park(car);
         parking.park(truck);
-
         assertThat(parking.getAllCar(), is(new ArrayList<>(Arrays.asList(car, truck))));
     }
 
     @Test
-    public void getBackCar() {
+    public void getCar() {
         Car truck = new Truck();
         Parking parking = new CarParking(10, 2);
         parking.park(truck);
-        assertThat(parking.getBackCar(truck), is(truck));
-        assertThat(parking.getParkingSize(), is(0));
+        assertThat(parking.getCar(truck), is(truck));
+        assertThat(parking.getParkingSize(), is(1));
     }
 }
