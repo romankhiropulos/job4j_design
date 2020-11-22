@@ -32,7 +32,8 @@ public class CarParking implements Parking {
 
     @Override
     public boolean park(Car car) {
-        if (car.getCarSize() == 1) {
+        int carSize = car.getCarSize();
+        if (carSize == 1) {
             if (passengerCarStorageSize < passengerCarLimit) {
                 passengerCarStorage[passengerCarStorageSize] = car;
                 passengerCarCount++;
@@ -46,10 +47,10 @@ public class CarParking implements Parking {
                 truckCount++;
                 truckStorageSize++;
             } else {
-                if (passengerCarLimit - passengerCarStorageSize >= car.getCarSize()) {
+                if (passengerCarLimit - passengerCarStorageSize >= carSize) {
                     passengerCarStorage[passengerCarStorageSize] = car;
                     truckCount++;
-                    passengerCarStorageSize = passengerCarStorageSize + car.getCarSize();
+                    passengerCarStorageSize = passengerCarStorageSize + carSize;
                 } else {
                     return false;
                 }
@@ -69,10 +70,11 @@ public class CarParking implements Parking {
     @Override
     public Car getCar(Car car) {
         Optional<Car> result = Optional.empty();
-        if (car.getCarSize() > 1) {
+        int carSize = car.getCarSize();
+        if (carSize > 1) {
             result = Arrays.stream(truckStorage).filter(searchCar -> searchCar.equals(car)).findFirst();
         }
-        if (car.getCarSize() == 1 || (result.isEmpty() && truckCount > 0)) {
+        if (carSize == 1 || (result.isEmpty() && truckCount > 0)) {
             result = Arrays.stream(passengerCarStorage).filter(searchCar -> searchCar.equals(car)).findFirst();
         }
         return result.orElse(null);
