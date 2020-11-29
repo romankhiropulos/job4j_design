@@ -16,9 +16,9 @@ public class CarParkingTest {
     @Test
     public void whenParkTruckAndNoPlaceThen() {
         Car truck = new Truck();
-        Parking parking = new CarParking(1, 0);
+        Parking parking = new CarParking(4, 0);
         parking.park(truck);
-        assertThat(parking.getParkingSize(), is(0));
+        assertThat(parking.getParkingSize(), is(1));
     }
 
     @Test
