@@ -1,5 +1,8 @@
 package ru.job4j.tictactoe.field;
 
-public interface Field {
+import ru.job4j.tictactoe.mark.Mark;
+import ru.job4j.tictactoe.player.Player;
 
+public interface Field {
+    boolean addChoice(Player player, int place);
 }
