@@ -34,6 +34,7 @@ public class GameExecutor {
                 String result = gameRule.nextMove(nextGamer, cellNumber);
                 if ("win".equals(result)) {
                     run = false;
+                    showField(field, input);
                     input.print("Gamer \""
                             .concat(nextGamer.getName())
                             .concat("\" ")
@@ -51,40 +52,61 @@ public class GameExecutor {
     private void showField(Field field, Input input) {
         List<Player> players = field.getAllCells();
         int count = 0;
+        String name;
         StringBuilder line = new StringBuilder("  ".concat("A ").concat("B ").concat("C\n"));
         for (Player player : players) {
             switch (count) {
                 case (0):
-                    line.append("1 ");
+                    line.append("0 ");
                     break;
                 case (3):
-                    line.append("\n2 ");
+                    line.append("\n1 ");
                     break;
                 case (6):
-                    line.append("\n3 ");
+                    line.append("\n2 ");
                     break;
                 default:
                     break;
             }
-            line.append(player == null ? line.append("  ") : line.append(player.getName()).append(" "));
+            line.append(player.getName().equals("Dummy") ? " " : player.getName()).append(" ");
             count++;
         }
-        line.append("\n");
         input.print(line.toString());
     }
 
     private void showFreeCells(Field field, Input input) {
-        List<Player> players = field.getAllCells();
         StringBuilder line = new StringBuilder("\n");
         for (int i = 0; i < 9; i++) {
-            if (players.get(i) == null) {
-                if (i == 0 || i == 3 || i == 6) {
-                    line.append(i).append(" - A").append(i);
-                } else if (i == 1 || i == 4 || i == 7) {
-                    line.append(i).append(" - B").append(i);
-                } else if (i == 2 || i == 5 || i == 8) {
-                    line.append(i).append(" - C").append(i);
-                }
+            switch (i) {
+                case (0):
+                    line.append(i).append(" - A").append(0).append("\n");
+                    break;
+                case (1):
+                    line.append(i).append(" - B").append(0).append("\n");
+                    break;
+                case (2):
+                    line.append(i).append(" - C").append(0).append("\n");
+                    break;
+                case (3):
+                    line.append(i).append(" - A").append(1).append("\n");
+                    break;
+                case (4):
+                    line.append(i).append(" - B").append(1).append("\n");
+                    break;
+                case (5):
+                    line.append(i).append(" - C").append(1).append("\n");
+                    break;
+                case (6):
+                    line.append(i).append(" - A").append(2).append("\n");
+                    break;
+                case (7):
+                    line.append(i).append(" - B").append(2).append("\n");
+                    break;
+                case (8):
+                    line.append(i).append(" - C").append(2).append("\n");
+                    break;
+                default:
+                    break;
             }
         }
         input.print(line.toString());

@@ -1,11 +1,13 @@
 package ru.job4j.tictactoe.field;
 
+import ru.job4j.tictactoe.player.Gamer;
 import ru.job4j.tictactoe.player.Player;
 import ru.job4j.tictactoe.util.FieldUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class MemField implements Field {
 
@@ -15,6 +17,9 @@ public class MemField implements Field {
 
     public MemField() {
         field = new Player[9];
+        for (int i = 0; i < 9; i++) {
+            field[i] = new Gamer("Dummy");
+        }
     }
 
     @Override
@@ -33,7 +38,7 @@ public class MemField implements Field {
 
     @Override
     public boolean isFree(int place) {
-        return field[place] == null;
+        return field[place].getName().equals("Dummy");
     }
 
     @Override

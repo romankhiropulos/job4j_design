@@ -30,7 +30,7 @@ public class InputValidation implements Input {
                             .format("Out of about %s > [0, %s]", value, 8));
                 }
             } catch (IllegalStateException ise) {
-                print("Please select key from list.");
+                print("Please select a key from 0 to 9 that you have not used yet.");
             } catch (NumberFormatException nfe) {
                 print("Please enter validate data again.");
             }
