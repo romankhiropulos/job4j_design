@@ -1,7 +1,6 @@
 package ru.job4j.tictactoe.rule;
 
 import ru.job4j.tictactoe.field.Field;
-import ru.job4j.tictactoe.input.Input;
 import ru.job4j.tictactoe.player.Gamer;
 import ru.job4j.tictactoe.player.Player;
 
@@ -21,6 +20,9 @@ public class GameRule implements Rule {
         player0 = new Gamer("0");
     }
 
+    // Нужно исключить возможность выбора занятой ячейки
+    // Тогда можно избавиться от этого метода и не использовать
+    // объект Field в Rule и в ValidationInput.
     @Override
     public boolean isEmptyCell(int place) {
         return field.getAllCells().get(place) == null;
@@ -40,7 +42,6 @@ public class GameRule implements Rule {
         } else if (nextPlayer.equals(player0)) {
             nextPlayer = playerX;
         }
-
         return nextPlayer;
     }
 

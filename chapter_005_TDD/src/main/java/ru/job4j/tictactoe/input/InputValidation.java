@@ -13,8 +13,8 @@ public class InputValidation implements Input {
     }
 
     @Override
-    public void print(String message) {
-        input.print(message);
+    public void printException(String message) {
+        input.printException(message);
     }
 
     @Override
@@ -30,9 +30,9 @@ public class InputValidation implements Input {
                             .format("Out of about %s > [0, %s]", value, 8));
                 }
             } catch (IllegalStateException ise) {
-                print("Please select a key from 0 to 9 that you have not used yet.");
+                printException("Please select a key from 0 to 9 that you have not used yet.");
             } catch (NumberFormatException nfe) {
-                print("Please enter validate data again.");
+                printException("Please enter validate data again.");
             }
         } while (true);
     }

@@ -17,7 +17,7 @@ public class ConsoleInput implements Input {
     }
 
     @Override
-    public void print(String message) {
+    public void printException(String message) {
         System.out.println(message);
     }
 }

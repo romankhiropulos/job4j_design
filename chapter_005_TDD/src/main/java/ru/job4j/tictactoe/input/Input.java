@@ -18,5 +18,5 @@ public interface Input {
      *
      * @param message Информационное сообщение пользователю
      */
-    void print(String message);
+    void printException(String message);
 }
