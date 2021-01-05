@@ -7,13 +7,15 @@ import ru.job4j.tictactoe.util.FieldUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class MemField implements Field {
 
     private final Player[] field;
 
     private int size;
+
+    private static final String CONT = "continue";
+    private static final String WIN = "win";
 
     public MemField() {
         field = new Player[9];
@@ -23,17 +25,15 @@ public class MemField implements Field {
     }
 
     @Override
-    public int getSize() {
-        return size;
+    public String addChoice(Player player, int place) {
+        field[place] = player;
+        size++;
+        return winCheck() ? WIN : CONT;
     }
 
     @Override
-    public String addChoice(Player player, int place) {
-        String cont = "continue";
-        String win = "win";
-        field[place] = player;
-        size++;
-        return winCheck() ? win : cont;
+    public int getSize() {
+        return size;
     }
 
     @Override

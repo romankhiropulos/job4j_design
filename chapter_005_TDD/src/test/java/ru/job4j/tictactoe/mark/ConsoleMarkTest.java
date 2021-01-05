@@ -1,19 +1,17 @@
-package ru.job4j.tictactoe;
+package ru.job4j.tictactoe.mark;
 
 import org.junit.Test;
-import ru.job4j.tictactoe.mark.ConsoleMarkO;
 
 import java.io.ByteArrayOutputStream;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
-public class ConsoleMarkOTest {
-
+public class ConsoleMarkTest {
     @Test
     public void print() {
         var out = new ByteArrayOutputStream();
-        new ConsoleMarkO().print(out);
-        assertThat(out.toString(), is("O"));
+        new ConsoleMark("0").print(out);
+        assertThat(out.toString(), is("0"));
     }
 }

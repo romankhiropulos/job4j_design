@@ -8,15 +8,14 @@ public interface Input {
     /**
      * Метод запрашивает от пользователя ввод данных от 0 до 9.
      *
-     * @param question Вопрос на который нужно ответить пользователю
      * @return Число введенное пользователем
      */
-    int askNumber(String question);
+    int askNumber();
 
-    /**
-     * Метод выводит сообщение пользователю
-     *
-     * @param message Информационное сообщение пользователю
-     */
-    void printException(String message);
+//    /**
+//     * Метод выводит сообщение пользователю
+//     *
+//     * @param message Информационное сообщение пользователю
+//     */
+//    void printException(String message);
 }

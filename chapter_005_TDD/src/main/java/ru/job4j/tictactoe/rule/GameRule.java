@@ -25,7 +25,7 @@ public class GameRule implements Rule {
     // объект Field в Rule и в ValidationInput.
     @Override
     public boolean isEmptyCell(int place) {
-        return field.getAllCells().get(place) == null;
+        return field.getAllCells().get(place).getName().equals("Dummy");
     }
 
     @Override

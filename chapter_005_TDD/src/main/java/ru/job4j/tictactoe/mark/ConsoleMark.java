@@ -6,21 +6,22 @@ import java.util.Objects;
 
 public class ConsoleMark implements Mark<OutputStream> {
 
-    private final String name;
+    private final String message;
 
-    public ConsoleMark(String name) {
-        Objects.requireNonNull(name, "name must not be null");
-        this.name = name;
+    public ConsoleMark(String message) {
+        Objects.requireNonNull(message, "message must not be null");
+        this.message = message;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public void print() {
+        System.out.println(message);
     }
 
     @Override
     public void print(OutputStream screen) {
         try {
-            screen.write(name.getBytes());
+            screen.write(message.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
