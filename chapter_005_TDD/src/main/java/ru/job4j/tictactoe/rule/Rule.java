@@ -7,7 +7,5 @@ public interface Rule {
 
     boolean isThereFreeCells();
 
-    boolean isEmptyCell(int place);
-
     String nextMove(Player player, int place);
 }

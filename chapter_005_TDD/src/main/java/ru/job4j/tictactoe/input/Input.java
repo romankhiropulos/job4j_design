@@ -11,11 +11,4 @@ public interface Input {
      * @return Число введенное пользователем
      */
     int askNumber();
-
-//    /**
-//     * Метод выводит сообщение пользователю
-//     *
-//     * @param message Информационное сообщение пользователю
-//     */
-//    void printException(String message);
 }

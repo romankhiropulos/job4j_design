@@ -23,7 +23,7 @@ public class ConsoleOutPut implements OutPut<OutputStream> {
     private static final String MARK_CELL_NOT_FREE = "Please select a key from 0 to 9 that you have not used yet.";
     private static final String MARK_NUMBER_EXCEPTION = "Please enter validate data again.";
 
-    private ConsoleOutPut(Field field) {
+    public ConsoleOutPut(Field field) {
         Mark<OutputStream> fieldMark = new ConsoleMarkField(field);
         Mark<OutputStream> numbersMark = new ConsoleMarkNumbersList();
         Mark<OutputStream> markX = new ConsoleMark(MARK_X);
@@ -43,10 +43,6 @@ public class ConsoleOutPut implements OutPut<OutputStream> {
         marks.put(MARK_GAME_OVER_KEY, markGameOver);
         marks.put(MARK_CELL_NOT_FREE_KEY, markCellNotFree);
         marks.put(MARK_NUMBER_EXCEPTION_KEY, markNumberException);
-    }
-
-    public static OutPut<OutputStream> getInstance(Field field) {
-        return new ConsoleOutPut(field);
     }
 
     @Override

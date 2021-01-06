@@ -20,14 +20,6 @@ public class GameRule implements Rule {
         player0 = new Gamer("0");
     }
 
-    // Нужно исключить возможность выбора занятой ячейки
-    // Тогда можно избавиться от этого метода и не использовать
-    // объект Field в Rule и в ValidationInput.
-    @Override
-    public boolean isEmptyCell(int place) {
-        return field.getAllCells().get(place).getName().equals("Dummy");
-    }
-
     @Override
     public boolean isThereFreeCells() {
         return field.getSize() < 9;

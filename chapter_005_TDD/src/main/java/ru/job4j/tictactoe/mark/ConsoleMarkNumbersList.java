@@ -1,28 +1,19 @@
 package ru.job4j.tictactoe.mark;
 
-import java.io.IOException;
-import java.io.OutputStream;
+public class ConsoleMarkNumbersList extends ConsoleMark {
 
-public class ConsoleMarkNumbersList implements Mark<OutputStream> {
-
-    @Override
-    public void print() {
-        System.out.println(fillString());
+    public ConsoleMarkNumbersList() {
+        this(fillString());
     }
 
-    @Override
-    public void print(OutputStream screen) {
-        try {
-            screen.write(fillString().getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public ConsoleMarkNumbersList(String message) {
+        super(message);
     }
 
-    private String fillString() {
+    private static String fillString() {
         StringBuilder line = new StringBuilder();
         line.append("\n");
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i <= 9; i++) {
             switch (i) {
                 case (0):
                     line.append(i).append(" - A").append(1).append("\n");
@@ -50,6 +41,9 @@ public class ConsoleMarkNumbersList implements Mark<OutputStream> {
                     break;
                 case (8):
                     line.append(i).append(" - C").append(3).append("\n");
+                    break;
+                case (9):
+                    line.append(i).append(" - Exit").append("\n");
                     break;
                 default:
                     break;

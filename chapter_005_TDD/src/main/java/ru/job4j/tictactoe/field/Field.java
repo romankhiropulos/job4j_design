@@ -1,6 +1,5 @@
 package ru.job4j.tictactoe.field;
 
-import ru.job4j.tictactoe.mark.Mark;
 import ru.job4j.tictactoe.player.Player;
 
 import java.util.List;

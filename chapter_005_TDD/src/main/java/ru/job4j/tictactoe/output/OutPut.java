@@ -1,9 +1,5 @@
 package ru.job4j.tictactoe.output;
 
-import ru.job4j.tictactoe.field.Field;
-
-import java.io.OutputStream;
-
 public interface OutPut<T> {
     String MARK_FIELD_KEY = "Field";
     String MARK_NUMBERS_KEY = "NumbersList";
