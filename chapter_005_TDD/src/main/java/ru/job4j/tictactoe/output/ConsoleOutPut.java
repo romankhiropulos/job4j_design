@@ -13,16 +13,6 @@ import java.util.Map;
 public class ConsoleOutPut implements OutPut<OutputStream> {
     private final Map<String, Mark<OutputStream>> marks = new HashMap<>(); // ? enumMap
 
-    private static final String MARK_X = "Gamer ".concat("X")
-                                                 .concat(", select a cell number: ");
-    private static final String MARK_0 = "Gamer ".concat("0")
-                                                 .concat(", select a cell number: ");
-    private static final String MARK_WIN_X = "Player \"X\" Win!";
-    private static final String MARK_WIN_0 = "Player \"0\" Win!";
-    private static final String MARK_GAME_OVER = "Game Over!";
-    private static final String MARK_CELL_NOT_FREE = "Please select a key from 0 to 9 that you have not used yet.";
-    private static final String MARK_NUMBER_EXCEPTION = "Please enter validate data again.";
-
     public ConsoleOutPut(Field field) {
         Mark<OutputStream> fieldMark = new ConsoleMarkField(field);
         Mark<OutputStream> numbersMark = new ConsoleMarkNumbersList();
@@ -52,6 +42,6 @@ public class ConsoleOutPut implements OutPut<OutputStream> {
 
     @Override
     public void printOutPut(String mark, OutputStream screen) {
-
+            marks.get(mark).print(screen);
     }
 }

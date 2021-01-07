@@ -8,11 +8,6 @@ public class Gamer implements Player {
     }
 
     @Override
-    public int makeChoice(int place) {
-        return place;
-    }
-
-    @Override
     public String getName() {
         return name;
     }
