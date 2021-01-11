@@ -3,33 +3,28 @@ package ru.job4j.tictactoe.mark;
 import ru.job4j.tictactoe.field.Field;
 import ru.job4j.tictactoe.player.Player;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
-public class ConsoleMarkField implements Mark<OutputStream> {
+public class ConsoleMarkField extends ConsoleMark {
 
     private final Field field;
 
     public ConsoleMarkField(Field field) {
+        this("message", field);
+    }
+
+    public ConsoleMarkField(String message, Field field) {
+        super(message);
         this.field = field;
     }
 
     @Override
-    public void print() {
-        System.out.println(fillString());
+    public String getMessage() {
+        setMessage(fillMessageText(field));
+        return super.getMessage();
     }
 
-    @Override
-    public void print(OutputStream screen) {
-        try {
-            screen.write(fillString().getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String fillString() {
+    private static String fillMessageText(Field field) {
         List<Player> players = field.getAllCells();
         int count = 0;
         StringBuilder line = new StringBuilder();

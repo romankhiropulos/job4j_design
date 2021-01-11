@@ -36,11 +36,6 @@ public class ConsoleOutPut implements OutPut<OutputStream> {
     }
 
     @Override
-    public void printOutPut(String mark) {
-        marks.get(mark).print();
-    }
-
-    @Override
     public void printOutPut(String mark, OutputStream screen) {
             marks.get(mark).print(screen);
     }

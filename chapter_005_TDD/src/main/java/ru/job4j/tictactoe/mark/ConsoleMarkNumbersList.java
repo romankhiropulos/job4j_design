@@ -3,14 +3,14 @@ package ru.job4j.tictactoe.mark;
 public class ConsoleMarkNumbersList extends ConsoleMark {
 
     public ConsoleMarkNumbersList() {
-        this(fillString());
+        this(fillMessageText());
     }
 
-    public ConsoleMarkNumbersList(String message) {
+    private ConsoleMarkNumbersList(String message) {
         super(message);
     }
 
-    private static String fillString() {
+    private static String fillMessageText() {
         StringBuilder line = new StringBuilder();
         line.append("\n");
         for (int i = 0; i <= 9; i++) {
