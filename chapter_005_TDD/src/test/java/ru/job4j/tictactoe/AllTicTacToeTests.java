@@ -3,6 +3,8 @@ package ru.job4j.tictactoe;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import ru.job4j.tictactoe.field.MemFieldTest;
+import ru.job4j.tictactoe.input.ConsoleInputTest;
+import ru.job4j.tictactoe.input.InputValidationTest;
 import ru.job4j.tictactoe.mark.ConsoleMarkFieldTest;
 import ru.job4j.tictactoe.mark.ConsoleMarkNumbersListTest;
 import ru.job4j.tictactoe.mark.ConsoleMarkTest;
@@ -16,6 +18,8 @@ import ru.job4j.tictactoe.rule.GameRuleTest;
         ConsoleMarkFieldTest.class,
         ConsoleMarkNumbersListTest.class,
         ConsoleOutPutTest.class,
+        ConsoleInputTest.class,
+        InputValidationTest.class,
         GameRuleTest.class,
         GamerTest.class,
         MemFieldTest.class
